@@ -1,28 +1,23 @@
-# Create T3 App
+# OAuth integration demos!
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+This app demonstrates how to allow users to log in with various providers and make API requests on their behalf to aggregate Advertizement data from various platforms onto a single dashboard.
 
-## What's next? How do I make an app with this?
+## Integrations
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+### Google
+You will need to add the following values to your environment variables via .env and .env.local, all of which you can get / set up in the Google Developer Console:
+  - GOOGLE_CLIENT_ID
+  - GOOGLE_CLIENT_SECRET
+  - GOOGLE_DEV_TOKEN (see https://developers.google.com/google-ads/api/docs/first-call/dev-token)
+  - GOOGLE_AUTH_REDIRECT (this should be http://localhost:3000/api/auth/callback/google when using an unmodified next-auth, as it is set it `.env.example`)
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+Depending on which API endpoints you reach, you may need to add additional scopes in the provider settings in `[...nextauth].ts`
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+Notice that I've installed `google-ads-api` from npm to help with making authenticated OAuth2 requests.
 
-## Learn More
+#### Note
+When the user signs in, I store the access token in the session, allowing for subsequent authenticated requests to be made. This should likely instead be stored in your user database if you have one.
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
-
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
-
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+#### Links
+- [NextAuth - Google Authentications for Nextjs](https://refine.dev/blog/nextauth-google-github-authentication-nextjs/)
+- [Obtain your Developer Token](https://developers.google.com/google-ads/api/docs/first-call/dev-token)
